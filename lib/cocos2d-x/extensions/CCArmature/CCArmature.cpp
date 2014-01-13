@@ -614,8 +614,12 @@ void CCArmature::disconnectMovementEventSignal()
 {
 	if(m_nScriptMovementHandler)
 	{
-		CCScriptEngineManager::sharedManager()->getScriptEngine()->removeScriptHandler(m_nScriptMovementHandler);
-        LUALOG("[LUA] Remove CCArmature script movement handler: %d", m_nScriptMovementHandler);
+        CCLuaEngine* __luaEngine = dynamic_cast<CCLuaEngine*>(CCScriptEngineManager::sharedManager()->getScriptEngine());
+		if(__luaEngine)
+		{
+            __luaEngine->removeScriptHandler(m_nScriptMovementHandler);
+            LUALOG("[LUA] Remove CCArmature script movement handler: %d", m_nScriptMovementHandler);
+        }
 	}
 	m_nScriptMovementHandler = 0;
 }

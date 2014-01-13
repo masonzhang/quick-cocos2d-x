@@ -51,6 +51,7 @@ CCArmatureDataManager::CCArmatureDataManager(void)
 	m_pArmarureDatas = NULL;
     m_pAnimationDatas = NULL;
     m_pTextureDatas = NULL;
+    m_pFrameRates = NULL;
 }
 
 
@@ -61,6 +62,7 @@ CCArmatureDataManager::~CCArmatureDataManager(void)
     CC_SAFE_DELETE(m_pAnimationDatas);
     CC_SAFE_DELETE(m_pArmarureDatas);
     CC_SAFE_DELETE(m_pTextureDatas);
+    CC_SAFE_DELETE(m_pFrameRates);
 }
 
 void CCArmatureDataManager::purgeArmatureSystem()
@@ -86,6 +88,10 @@ bool CCArmatureDataManager::init()
         m_pTextureDatas = CCDictionary::create();
         CCAssert(m_pTextureDatas, "create CCArmatureDataManager::m_pTextureDatas fail!");
         m_pTextureDatas->retain();
+        
+        m_pFrameRates = CCDictionary::create();
+        CCAssert(m_pFrameRates, "create CCArmatureDataManager::m_pFrameRates fail!");
+        m_pFrameRates->retain();
 
         bRet = true;
     }
@@ -128,6 +134,13 @@ void CCArmatureDataManager::addTextureData(const char *id, CCTextureData *textur
     }
 }
 
+void CCArmatureDataManager::addFrameRateData(const char *id, CCInteger *frameRateData)
+{
+    if (frameRateData) {
+        m_pFrameRates->setObject(frameRateData, id);
+    }
+}
+
 CCAnimationData *CCArmatureDataManager::getAnimationData(const char *id)
 {
     CCAnimationData *animationData = NULL;
@@ -148,7 +161,16 @@ CCTextureData *CCArmatureDataManager::getTextureData(const char *id)
     return textureData;
 }
 
-
+CCInteger *CCArmatureDataManager::getFrameRateData(const char *id)
+{
+    CCInteger *frameRateData = NULL;
+    if (m_pFrameRates)
+    {
+        frameRateData = (CCInteger *)m_pFrameRates->objectForKey(id);
+    }
+    // flash default frame rate is 24
+    return (frameRateData == NULL ? CCInteger::create(24) : frameRateData);
+}
 
 void CCArmatureDataManager::addArmatureFileInfo(const char *armatureName, const char *useExistFileInfo, const char *imagePath, const char *plistPath, const char *configFilePath)
 {

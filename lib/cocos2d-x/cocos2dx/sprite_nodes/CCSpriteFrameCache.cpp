@@ -286,6 +286,15 @@ void CCSpriteFrameCache::addSpriteFrame(CCSpriteFrame *pobFrame, const char *psz
     m_pSpriteFrames->setObject(pobFrame, pszFrameName);
 }
 
+void CCSpriteFrameCache::addSpriteFrameAlias(CCString *frameName, const char *aliasName)
+{
+    if (m_pSpriteFramesAliases->objectForKey(aliasName))
+    {
+        CCLOGWARN("cocos2d: WARNING: an alias with name %s already exists", aliasName);
+    }
+    m_pSpriteFramesAliases->setObject(frameName, aliasName);
+}
+
 void CCSpriteFrameCache::removeSpriteFrames(void)
 {
     m_pSpriteFrames->removeAllObjects();

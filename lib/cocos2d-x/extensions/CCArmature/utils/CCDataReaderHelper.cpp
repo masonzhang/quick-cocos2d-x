@@ -30,7 +30,7 @@ THE SOFTWARE.
 #include "../datas/CCDatas.h"
 
 
-
+static const char *FRAME_RATE = "frameRate";
 static const char *VERSION = "version";
 static const float VERSION_2_0 = 2.0f;
 
@@ -220,6 +220,9 @@ void CCDataReaderHelper::addDataFromCache(const char *pFileContent)
     CCAssert(root, "XML error  or  XML is empty.");
 
     root->QueryFloatAttribute(VERSION, &s_FlashToolVersion);
+    
+    int frameRate = 24;
+    root->QueryIntAttribute(FRAME_RATE, &frameRate);
 
     /*
     * Begin decode armature data from xml
@@ -243,6 +246,7 @@ void CCDataReaderHelper::addDataFromCache(const char *pFileContent)
     {
         CCAnimationData *animationData = CCDataReaderHelper::decodeAnimation(animationXML);
         CCArmatureDataManager::sharedArmatureDataManager()->addAnimationData(animationData->name.c_str(), animationData);
+        CCArmatureDataManager::sharedArmatureDataManager()->addFrameRateData(animationData->name.c_str(), CCInteger::create(frameRate));
 
         animationXML = animationXML->NextSiblingElement(ANIMATION);
     }

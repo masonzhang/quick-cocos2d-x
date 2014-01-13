@@ -103,6 +103,24 @@ public:
     CCTextureData *getTextureData(const char *id);
     
     /**
+     *	@brief	add Frame Rate data
+     *
+     *	@param 	id the id of the Frame Rate data
+	 *
+	 *  @return CCInteger *
+     */
+    void addFrameRateData(const char *id, CCInteger *frameRateData);
+    
+	/**
+     *	@brief	get Frame Rate data
+     *
+     *	@param 	_id the id of the Frame Rate data you want to get
+	 *
+	 *  @return CCInteger *
+     */
+    CCInteger *getFrameRateData(const char *id);
+    
+    /**
 	 *	@brief	Add ArmatureFileInfo, it is managed by CCArmatureDataManager.
      */
 	void addArmatureFileInfo(const char *armatureName, const char *useExistFileInfo, const char *imagePath, const char *plistPath, const char *configFilePath);
@@ -144,6 +162,13 @@ private:
 	 *  @value	CCTextureData *
      */
 	CC_SYNTHESIZE_READONLY(CCDictionary *, m_pTextureDatas, TextureDatas);
+    
+    /**
+	 *	@brief	save armature frame rate datas
+	 *  @key	std::string
+	 *  @value	CCInteger *
+     */
+	CC_SYNTHESIZE_READONLY(CCDictionary *, m_pFrameRates, FrameRates);
 
 };
 

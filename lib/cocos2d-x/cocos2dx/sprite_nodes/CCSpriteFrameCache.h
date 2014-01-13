@@ -98,6 +98,11 @@ public:
      If the name already exists, then the contents of the old name will be replaced with the new one.
      */
     void addSpriteFrame(CCSpriteFrame *pobFrame, const char *pszFrameName);
+    
+    /** Adds an alis name for a frame name.
+     If the name already exists, then the contents of the old name will be replaced with the new one.
+     */
+    void addSpriteFrameAlias(CCString *frameName, const char *aliasName);
 
     /** Purges the dictionary of loaded sprite frames.
      * Call this method if you receive the "Memory Warning".
