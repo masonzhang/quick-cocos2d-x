@@ -61235,6 +61235,42 @@ static int tolua_Cocos2d_CCArmatureDataManager_getAnimationData00(lua_State* tol
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: getFrameRateData of class  CCArmatureDataManager */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCArmatureDataManager_getFrameRateData00
+static int tolua_Cocos2d_CCArmatureDataManager_getFrameRateData00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+    tolua_Error tolua_err;
+    if (
+        !tolua_isusertype(tolua_S,1,"CCArmatureDataManager",0,&tolua_err) ||
+        !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+        !tolua_isnoobj(tolua_S,3,&tolua_err)
+        )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        CCArmatureDataManager* self = (CCArmatureDataManager*)  tolua_tousertype(tolua_S,1,0);
+        const char* id = ((const char*)  tolua_tostring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+        if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getFrameRateData'", NULL);
+#endif
+        {
+            CCInteger* tolua_ret = (CCInteger*)  self->getFrameRateData(id);
+            int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+            int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+            toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCInteger");
+        }
+    }
+    return 1;
+#ifndef TOLUA_RELEASE
+tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'getFrameRateData'.",&tolua_err);
+    return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: addArmatureFileInfo of class  CCArmatureDataManager */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_CCArmatureDataManager_addArmatureFileInfo00
 static int tolua_Cocos2d_CCArmatureDataManager_addArmatureFileInfo00(lua_State* tolua_S)
@@ -65347,6 +65383,7 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getArmatureData",tolua_Cocos2d_CCArmatureDataManager_getArmatureData00);
    tolua_function(tolua_S,"addAnimationData",tolua_Cocos2d_CCArmatureDataManager_addAnimationData00);
    tolua_function(tolua_S,"getAnimationData",tolua_Cocos2d_CCArmatureDataManager_getAnimationData00);
+   tolua_function(tolua_S,"getFrameRateData",tolua_Cocos2d_CCArmatureDataManager_getFrameRateData00);
    tolua_function(tolua_S,"addArmatureFileInfo",tolua_Cocos2d_CCArmatureDataManager_addArmatureFileInfo00);
    tolua_function(tolua_S,"addSpriteFrameFromFile",tolua_Cocos2d_CCArmatureDataManager_addSpriteFrameFromFile00);
    tolua_function(tolua_S,"removeAll",tolua_Cocos2d_CCArmatureDataManager_removeAll00);

@@ -81,6 +81,7 @@ CCArmature::CCArmature()
 	, m_pParentBone(NULL)
 	, m_pBoneDic(NULL)
     , m_pTopBoneList(NULL)
+    , m_nScriptMovementHandler(0)
 {
 }
 
