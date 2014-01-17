@@ -264,7 +264,7 @@ bool CCDisplayManager::containPoint(CCPoint &point)
         CCSprite *sprite = (CCSprite *)m_pCurrentDecoDisplay->getDisplay();
         CCSprite *spriteTag0 = (CCSprite *)sprite->getChildByTag(0);
 
-        ret = CC_SPRITE_CONTAIN_POINT_WITH_RETURN( (spriteTag0==NULL?sprite:spriteTag0), point, outPoint);
+        ret = CC_SPRITE_CONTAIN_POINT_WITH_RETURN( (spriteTag0 == NULL ? sprite : spriteTag0), point, outPoint);
 
     }
     break;
