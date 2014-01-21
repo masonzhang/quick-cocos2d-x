@@ -357,4 +357,84 @@ void CCBone::changeDisplayByIndex(int _index, bool _force)
     m_pDisplayManager->changeDisplayByIndex(_index, _force);
 }
 
+CCRect CCBone::getCascadeBoundingBox(bool convertToWorld)
+{
+    float minx, miny, maxx, maxy = 0;
+    
+    bool first = true;
+    
+    CCRect box = CCRect(0, 0, 0, 0);
+    CCObject *object = NULL;
+    CCARRAY_FOREACH(m_pChildren, object)
+    {
+        CCRect r = dynamic_cast<CCNode*>(object)->getCascadeBoundingBox(false);
+        if (r.size.width == 0 || r.size.height == 0) continue;
+        r = CCRectApplyAffineTransform(r, nodeToParentTransform());
+        
+        if (first)
+        {
+            box = r;
+            first = false;
+        }
+        else
+        {
+            minx = r.getMinX() < box.getMinX() ? r.getMinX() : box.getMinX();
+            miny = r.getMinY() < box.getMinY() ? r.getMinY() : box.getMinY();
+            maxx = r.getMaxX() > box.getMaxX() ? r.getMaxX() : box.getMaxX();
+            maxy = r.getMaxY() > box.getMaxY() ? r.getMaxY() : box.getMaxY();
+            box.setRect(minx, miny, maxx - minx, maxy - miny);
+        }
+    }
+    
+    CCNode *node = m_pDisplayManager->getDisplayRenderNode();
+    
+    if (node) {
+        CCRect r = node->getCascadeBoundingBox(false);
+        if (r.size.width > 0 && r.size.height > 0) {
+            r = CCRectApplyAffineTransform(r, nodeToParentTransform());
+            
+            minx = r.getMinX() < box.getMinX() ? r.getMinX() : box.getMinX();
+            miny = r.getMinY() < box.getMinY() ? r.getMinY() : box.getMinY();
+            maxx = r.getMaxX() > box.getMaxX() ? r.getMaxX() : box.getMaxX();
+            maxy = r.getMaxY() > box.getMaxY() ? r.getMaxY() : box.getMaxY();
+            box.setRect(minx, miny, maxx - minx, maxy - miny);
+        }
+    }
+    
+    CCRect r;
+    bool mergeRect = false;
+    if (m_cascadeBoundingBox.size.width > 0 && m_cascadeBoundingBox.size.height > 0)
+    {
+        r = CCRectApplyAffineTransform(m_cascadeBoundingBox, nodeToParentTransform());
+        mergeRect = true;
+    }
+    else if (m_obTextureSize.width > 0 && m_obTextureSize.height > 0)
+    {
+        r = CCRectApplyAffineTransform(CCRectMake(0, 0, m_obTextureSize.width, m_obTextureSize.height), nodeToParentTransform());
+        mergeRect = true;
+    }
+    
+    if (mergeRect)
+    {
+        if (first)
+        {
+            box = r;
+        }
+        else
+        {
+            minx = r.getMinX() < box.getMinX() ? r.getMinX() : box.getMinX();
+            miny = r.getMinY() < box.getMinY() ? r.getMinY() : box.getMinY();
+            maxx = r.getMaxX() > box.getMaxX() ? r.getMaxX() : box.getMaxX();
+            maxy = r.getMaxY() > box.getMaxY() ? r.getMaxY() : box.getMaxY();
+            box.setRect(minx, miny, maxx - minx, maxy - miny);
+        }
+    }
+    
+    if (convertToWorld && m_pParent)
+    {
+        box = CCRectApplyAffineTransform(box, m_pParent->nodeToWorldTransform());
+    }
+    return box;
+}
+
 NS_CC_EXT_END

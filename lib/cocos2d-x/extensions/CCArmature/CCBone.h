@@ -139,6 +139,8 @@ public:
     virtual bool isTransformDirty();
 
     virtual CCAffineTransform nodeToArmatureTransform();
+    
+    virtual CCRect getCascadeBoundingBox(bool convertToWorld = true);
 
 public:
     /*
