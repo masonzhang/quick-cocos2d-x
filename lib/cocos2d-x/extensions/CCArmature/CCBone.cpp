@@ -357,6 +357,11 @@ void CCBone::changeDisplayByIndex(int _index, bool _force)
     m_pDisplayManager->changeDisplayByIndex(_index, _force);
 }
 
+CCRect CCBone::boundingBox(void)
+{
+    return getDisplayManager()->getBoundingBox();
+}
+
 CCRect CCBone::getCascadeBoundingBox(bool convertToWorld)
 {
     float minx, miny, maxx, maxy = 0;

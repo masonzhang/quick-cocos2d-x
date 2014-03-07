@@ -140,6 +140,8 @@ public:
 
     virtual CCAffineTransform nodeToArmatureTransform();
     
+    virtual CCRect boundingBox(void);
+    
     virtual CCRect getCascadeBoundingBox(bool convertToWorld = true);
 
 public:
