@@ -332,6 +332,30 @@ bool CCEGLView::Create()
     return bRet;
 }
 
+int CCEGLView::RecreateWithWindow(HWND hWnd, float width, float height)
+{
+	if(hWnd == NULL) {
+		return 0;
+	}
+
+	m_hWnd = hWnd ; 
+    resize(width, height);  
+	destroyGL();   
+	bool bRet = initGL();
+	if(!bRet) destroyGL();    
+
+#if(_MSC_VER >= 1600)
+    if(CheckTouchSupport() == true)
+	{
+	    bRet = (s_pfRegisterTouchWindowFunction(m_hWnd, 0) != 0);
+    }
+#endif /* #if(_MSC_VER >= 1600) */
+
+	CCEGLViewProtocol::setFrameSize(width, height);
+
+	return 0;
+}
+
 LRESULT CCEGLView::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
     BOOL bProcessed = FALSE;

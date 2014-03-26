@@ -59,6 +59,8 @@ private:
     bool initGL();
     void destroyGL();
 public:
+	int RecreateWithWindow(HWND hWnd, float width, float height);
+
     virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
 
     // win32 platform function
