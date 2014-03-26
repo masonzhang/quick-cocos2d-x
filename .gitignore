@@ -23,6 +23,12 @@ lib/cocos2dx_extra/proj.win32/Debug/
 lib/lua_extensions/proj.win32/Debug/
 lib/third_party/proj.win32/Debug/
 
+player/proj.win32/Release/
+lib/proj.win32/Release/
+lib/cocos2dx_extra/proj.win32/Release/
+lib/lua_extensions/proj.win32/Release/
+lib/third_party/proj.win32/Release/
+
 */*/proj.android/bin/
 */*/proj.android/gen/
 */*/proj.android/lint.xml
