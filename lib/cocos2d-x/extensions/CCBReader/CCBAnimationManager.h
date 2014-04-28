@@ -27,6 +27,8 @@ private:
     CCDictionary *mBaseValues;
     int mAutoPlaySequenceId;
     
+    int mAnimationManagerID;
+    
     CCNode *mRootNode;
     
     CCSize mRootContainerSize;
@@ -142,6 +144,7 @@ private:
     CCActionInterval* getEaseAction(CCActionInterval *pAction, int nEasingType, float fEasingOpt);
     void runAction(CCNode *pNode, CCBSequenceProperty *pSeqProp, float fTweenDuration);
     void sequenceCompleted();
+    void removeActionsByTagFromNode(int tag, CCNode *node);
 };
 /**
  *  @js NA
