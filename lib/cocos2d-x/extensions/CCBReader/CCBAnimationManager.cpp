@@ -763,14 +763,12 @@ void CCBAnimationManager::runAnimationsForSequenceIdTweenDuration(int nSeqId, fl
 {
     CCAssert(nSeqId != -1, "Sequence id couldn't be found");
     
-//    mRootNode->stopAllActions();
     removeActionsByTagFromNode(mAnimationManagerID, mRootNode);
     
     CCDictElement* pElement = NULL;
     CCDICT_FOREACH(mNodeSequences, pElement)
     {
         CCNode *node = (CCNode*)pElement->getIntKey();
-//        node->stopAllActions();
         removeActionsByTagFromNode(mAnimationManagerID, node);
         
         // Refer to CCBReader::readKeyframe() for the real type of value
